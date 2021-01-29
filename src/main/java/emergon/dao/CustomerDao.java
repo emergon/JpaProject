@@ -7,6 +7,7 @@ package emergon.dao;
 
 import emergon.entity.Customer;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -16,6 +17,16 @@ public class CustomerDao extends JpaUtil<Customer>{
     
     public List<Customer> findAll(){
         return super.findAll("SELECT c FROM Customer c");
+    }
+    
+    public Customer save(Customer customer){
+        //save object in DB
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        em.persist(customer);
+        em.getTransaction().commit();
+        closeEntityManager();
+        return customer;
     }
     
 }

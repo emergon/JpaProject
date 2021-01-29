@@ -34,12 +34,12 @@ public class JpaUtil<E> {
         emf.close();
     }
 
-    public EntityManager getEntityManager() {
+    protected EntityManager getEntityManager() {
         em = getEmf().createEntityManager();//One for each connection to DB
         return em;
     }
     
-    public void closeEntityManager(){
+    protected void closeEntityManager(){
         em.close();
     }
     
@@ -51,4 +51,6 @@ public class JpaUtil<E> {
         closeEntityManager();
         return list;
     }
+    
+    //protected 
 }
