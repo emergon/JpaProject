@@ -7,7 +7,6 @@ package emergon.dao;
 
 import emergon.entity.Customer;
 import java.util.List;
-import javax.persistence.EntityManager;
 
 /**
  *
@@ -34,14 +33,7 @@ public class CustomerDao extends JpaUtil<Customer>{
     }
     
     public void delete(int id){
-        EntityManager em = getEntityManager();
-        em.getTransaction().begin();
-        Customer c = em.find(Customer.class, id);
-        em.remove(c);
-        em.getTransaction().commit();
-        closeEntityManager();
+        super.delete(Customer.class, id);
     }
-    
-    
     
 }

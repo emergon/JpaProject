@@ -5,43 +5,46 @@
  */
 package emergon.dao;
 
-import emergon.entity.Customer;
+import emergon.entity.Salesman;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
  * @author user
  */
-public class CustomerDao extends JpaUtil<Customer>{
+public class SalesmanDao extends JpaUtil<Salesman>{
     
-    public List<Customer> findAll(){
-        return super.findAll("SELECT c FROM Customer c");
+    public List<Salesman> findAll(){
+        return super.findAll("SELECT c FROM Salesman c");
+    }
+    
+    public List<Salesman> findAllWithNamedQuery(){
+        List<Salesman> list;
+        EntityManager em = getEntityManager();
+        Query query = em.createNamedQuery("Salesman.findAll");//We must give a NamedQuery to EntityManager
+        list = query.getResultList();
+        closeEntityManager();
+        return list;
     }
     
     @Override
-    public Customer save(Customer customer){
-        return super.save(customer);
+    public Salesman save(Salesman salesman){
+        return super.save(salesman);
     }
     
-    public Customer find(int id){
-        return super.find(Customer.class, id);
+    public Salesman find(int id){
+        return super.find(Salesman.class, id);
     }
     
     @Override
-    public Customer update(Customer c){
+    public Salesman update(Salesman c){
         return super.update(c);
     }
     
     public void delete(int id){
-        EntityManager em = getEntityManager();
-        em.getTransaction().begin();
-        Customer c = em.find(Customer.class, id);
-        em.remove(c);
-        em.getTransaction().commit();
-        closeEntityManager();
+        super.delete(Salesman.class, id);
     }
-    
-    
     
 }

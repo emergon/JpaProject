@@ -78,5 +78,14 @@ public class JpaUtil<E> {
         return e;
     }
     
+    public void delete(Class<E> type, int id){
+        em = getEntityManager();
+        em.getTransaction().begin();
+        E e = em.find(type, id);
+        em.remove(e);
+        em.getTransaction().commit();
+        closeEntityManager();
+    }
+    
     
 }
