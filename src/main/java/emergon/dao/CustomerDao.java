@@ -19,14 +19,29 @@ public class CustomerDao extends JpaUtil<Customer>{
         return super.findAll("SELECT c FROM Customer c");
     }
     
+    @Override
     public Customer save(Customer customer){
-        //save object in DB
+        return super.save(customer);
+    }
+    
+    public Customer find(int id){
+        return super.find(Customer.class, id);
+    }
+    
+    @Override
+    public Customer update(Customer c){
+        return super.update(c);
+    }
+    
+    public void delete(int id){
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
-        em.persist(customer);
+        Customer c = em.find(Customer.class, id);
+        em.remove(c);
         em.getTransaction().commit();
         closeEntityManager();
-        return customer;
     }
+    
+    
     
 }

@@ -6,6 +6,7 @@
 package emergon.dao;
 
 import emergon.entity.Customer;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -52,5 +53,30 @@ public class JpaUtil<E> {
         return list;
     }
     
-    //protected 
+    protected E save(E entity){
+        em = getEntityManager();
+        em.getTransaction().begin();
+        em.persist(entity);
+        em.getTransaction().commit();
+        closeEntityManager();
+        return entity;
+    }
+    
+    protected E find(Class<E> type, int id){
+        em = getEntityManager();
+        E e = em.find(type, id);
+        closeEntityManager();
+        return e;
+    }
+    
+    protected E update(E e){
+        em = getEntityManager();
+        em.getTransaction().begin();
+        e = em.merge(e);
+        em.getTransaction().commit();
+        closeEntityManager();
+        return e;
+    }
+    
+    
 }
