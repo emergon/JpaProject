@@ -18,18 +18,26 @@ public class MainClass {
 
     public static void main(String[] args) {
         //printSalesmen();
-        Salesman s = new Salesman("Panagiotis", "Manh", 10.5);
+        //saveSalesmanWithFamily();
+        SalesmanDao sdao = new SalesmanDao();
+        Salesman s = sdao.findSalesmanByNameWithNamedQuery("Panagiotis");
+        System.out.println(s);
+        List<Family> familyMembers = s.getFamilyMembers();
+        System.out.println(s.getSname() + " has the following family members:");
+        for(Family f: familyMembers){
+            System.out.println(f);
+        }
+        JpaUtil.closeEmf();
+    }
+    
+    public static void saveSalesmanWithFamily(){
+        Salesman s = new Salesman("Panagiotis", "Manh", 10.5);//144
         Family son = new Family("Jack", "son", LocalDate.of(2015, Month.MARCH, 2));
         Family daughter = new Family("July", "daughter", LocalDate.of(2015, Month.MARCH, 2));
-//        List<Family> members = new ArrayList();
-//        members.add(son);
-//        members.add(daughter);
-//        s.setFamilyMembers(members);
         s.addFamilyMember(son);
         s.addFamilyMember(daughter);
         SalesmanDao sdao = new SalesmanDao();
         sdao.save(s);
-        JpaUtil.closeEmf();
     }
     
     public static void printSalesmen(){

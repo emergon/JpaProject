@@ -134,7 +134,9 @@ public class Family implements Serializable {
 
     @Override
     public String toString() {
-        return "emergon.entity.Family[ fid=" + fid + " ]";
+        return "Family{" + "fid=" + fid + ", fname=" + fname + ", frelationship=" + frelationship + ", dob=" + dob + '}';
     }
+
+    
     
 }
